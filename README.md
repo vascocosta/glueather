@@ -2,6 +2,8 @@
 
 A simple Python/Qt weather application using the OpenWeather API.
 
+![Windows screenshot 1](https://i.imgur.com/lTc87Yq.png)
+
 # Features
 
 * Simple interface
