@@ -19,8 +19,9 @@
 
 import json
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from ui_mainwindow import Ui_MainWindow
 
 from weathermanager import WeatherManager, WeatherError
@@ -28,6 +29,36 @@ from weathermanager import WeatherManager, WeatherError
 CONF_PATH    = 'conf.json'
 ICON_PATH    = 'icons/glueather.ico'
 WINDOW_TITLE = 'glueather'
+
+class WeatherWorker(QObject):
+    finished = pyqtSignal(object)
+
+    def __init__(self, api_key, units, location, current, hourly, daily):
+        super().__init__()
+        self.api_key = api_key
+        self.units = units
+        self.location = location
+        self.current = current
+        self.hourly = hourly
+        self.daily = daily
+
+    def run(self):
+        result = {}
+        try:
+            wm = WeatherManager(self.api_key, self.units)
+            if self.current:
+                current_weather = wm.current(self.location)
+                result['current_weather'] = current_weather
+            if self.hourly:
+                hourly_weather = wm.hourly(self.location)
+                result['hourly_weather'] = hourly_weather
+            if self.daily:
+                daily_weather = wm.daily(self.location)
+                result['daily_weather'] = daily_weather
+            self.finished.emit(result)
+        except WeatherError as e:
+            result['error'] = e.message
+            self.finished.emit(result)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -70,67 +101,71 @@ class MainWindow(QMainWindow):
         self.save_conf()
         event.accept()
 
-    def fetch_weather(self):
+    def update_weather(self, result):
+        if 'error' in result.keys():
+            QMessageBox.warning(self, "Error", result['error'])
+            return
         output = ""
+        if 'current_weather' in result.keys():
+            output += f"<h1>Current weather at - {result['current_weather']['location']}</h1>" + \
+                      f"<hr>" + \
+                      f"<table border='1' width='100%' cellpadding='10'>" + \
+                      f"<tr><td><b>Conditions</b></td><td>{result['current_weather']['description']}</td></tr>" + \
+                      f"<tr><td><b>Temperature</b></td><td>{result['current_weather']['temperature']}</td></tr>" + \
+                      f"<tr><td><b>Humidity</b></td><td>{result['current_weather']['humidity']}</td></tr>" + \
+                      f"<tr><td><b>Pressure</b></td><td>{result['current_weather']['pressure']}</td></tr>" + \
+                      f"<tr><td><b>Wind</b></td><td>{result['current_weather']['wind']}</td></tr>" + \
+                      f"</table>"
+            self.ui.textEdit.setHtml(output)
+        if 'hourly_weather' in result.keys():
+            output += f"<h1>Hourly forecast for - {result['hourly_weather'][0]['location']}</h1>" + \
+                      f"<hr>" + \
+                      f"<table border='1' cellpadding='10' width='100%'>" + \
+                      f"<tr><td><b>Time</b></td><td><b>Conditions</b></td><td><b>Temperature</b></td><td><b>Humidity</b></td><td><b>Pressure</b></td><td><b>Wind</b></td></tr>"
+            for i, forecast in enumerate(result['hourly_weather'], start=1):
+                output += f"<tr><td>{3*i} hours</td>" + \
+                          f"<td>{forecast['description']}</td>" + \
+                          f"<td>{forecast['temperature']}</td>" + \
+                          f"<td>{forecast['humidity']}</td>" + \
+                          f"<td>{forecast['pressure']}</td>" + \
+                          f"<td>{forecast['wind']}</td></tr>"
+            output += f"</table>"
+            self.ui.textEdit.setHtml(output)
+        if 'daily_weather' in result.keys():
+            output += f"<h1>Daily forecast for - {result['daily_weather'][0]['location']}</h1>" + \
+                      f"<hr>" + \
+                      f"<table border='1' cellpadding='10' width='100%'>" + \
+                      f"<tr><td><b>Day</b></td><td><b>Conditions</b></td><td><b>Temperature</b></td><td><b>Humidity</b></td><td><b>Pressure</b><td><b>Wind</b></td></tr>"
+            for i, forecast in enumerate(result['daily_weather'], start=1):
+                output += f"<tr><td>{forecast['day']}</td>" + \
+                          f"<td>{forecast['description']}</td>" + \
+                          f"<td>{forecast['temperature']}</td>" + \
+                          f"<td>{forecast['humidity']}</td>" + \
+                          f"<td>{forecast['pressure']}</td>" + \
+                          f"<td>{forecast['wind']}</td></tr>"
+            self.ui.textEdit.setHtml(output)
+
+    def fetch_weather(self):
+        output = "Updating..."
         location = self.ui.lineEdit.text()
         if self.ui.radioButton_2.isChecked():
             units = 'f'
         else:
             units = 'c'
-        wm = WeatherManager(self.conf['api_key'], units)
+        current = hourly = daily = False
         if self.ui.checkBox.isChecked():
-            try:
-                current_weather = wm.current(location)
-                output += f"<h1>Current weather at - {current_weather['location']}</h1>" + \
-                          f"<hr>" + \
-                          f"<table border='1' width='100%' cellpadding='10'>" + \
-                          f"<tr><td><b>Conditions</b></td><td>{current_weather['description']}</td></tr>" + \
-                          f"<tr><td><b>Temperature</b></td><td>{current_weather['temperature']}</td></tr>" + \
-                          f"<tr><td><b>Humidity</b></td><td>{current_weather['humidity']}</td></tr>" + \
-                          f"<tr><td><b>Pressure</b></td><td>{current_weather['pressure']}</td></tr>" + \
-                          f"<tr><td><b>Wind</b></td><td>{current_weather['wind']}</td></tr>" + \
-                          f"</table>"
-                self.ui.textEdit.setHtml(output)
-            except WeatherError as e:
-                QMessageBox.warning(self, "Error", e.message)
-                return
+            current = True
         if self.ui.checkBox_2.isChecked():
-            try:
-                three_h_forecast = wm.hourly(location)
-                output += f"<h1>Hourly forecast for - {three_h_forecast[0]['location']}</h1>" + \
-                          f"<hr>" + \
-                          f"<table border='1' cellpadding='10' width='100%'>" + \
-                          f"<tr><td><b>Time</b></td><td><b>Conditions</b></td><td><b>Temperature</b></td><td><b>Humidity</b></td><td><b>Pressure</b></td><td><b>Wind</b></td></tr>"
-                for i, forecast in enumerate(three_h_forecast, start=1):
-                    output += f"<tr><td>{3*i} hours</td>" + \
-                              f"<td>{forecast['description']}</td>" + \
-                              f"<td>{forecast['temperature']}</td>" + \
-                              f"<td>{forecast['humidity']}</td>" + \
-                              f"<td>{forecast['pressure']}</td>" + \
-                              f"<td>{forecast['wind']}</td></tr>"
-                output += f"</table>"
-                self.ui.textEdit.setHtml(output)
-            except WeatherError as e:
-                QMessageBox.warning(self, "Error", e.message)
-                return
+            hourly = True
         if self.ui.checkBox_3.isChecked():
-            try:
-                daily_forecast = wm.daily(location)
-                output += f"<h1>Daily forecast for - {daily_forecast[0]['location']}</h1>" + \
-                          f"<hr>" + \
-                          f"<table border='1' cellpadding='10' width='100%'>" + \
-                          f"<tr><td><b>Day</b></td><td><b>Conditions</b></td><td><b>Temperature</b></td><td><b>Humidity</b></td><td><b>Pressure</b><td><b>Wind</b></td></tr>"
-                for i, forecast in enumerate(daily_forecast, start=1):
-                    output += f"<tr><td>{forecast['day']}</td>" + \
-                              f"<td>{forecast['description']}</td>" + \
-                              f"<td>{forecast['temperature']}</td>" + \
-                              f"<td>{forecast['humidity']}</td>" + \
-                              f"<td>{forecast['pressure']}</td>" + \
-                              f"<td>{forecast['wind']}</td></tr>"
-                self.ui.textEdit.setHtml(output)
-            except WeatherError as e:
-                QMessageBox.warning(self, "Error", e.message)
-                return
+            daily = True
+        self.thread = QThread()
+        self.worker = WeatherWorker(self.conf['api_key'], units, location, current, hourly, daily)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.update_weather)
+        self.worker.finished.connect(self.thread.quit)
+        self.thread.start()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
