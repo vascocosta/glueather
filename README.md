@@ -47,11 +47,28 @@ pip3 install pyqt5
 
 ## Venv
 
+### MacOS/Linux
+
 ```
 git clone https://github.com/vascocosta/glueather.git
 cd glueather
 pyhton3 -m venv venv
-venv\Scripts\activate or source venv\bin\activate
+source venv\bin\activate
 pip3 install pyowm
 pip3 install pyqt5
 ```
+
+### Windows
+
+```
+git clone https://github.com/vascocosta/glueather.git
+cd glueather
+pyhton3 -m venv venv
+venv\Scripts\activate
+pip3 install pyowm
+pip3 install pyqt5
+```
+
+# Install (binaries)
+
+Coming soon...
