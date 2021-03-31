@@ -10,7 +10,13 @@ The application **requires** you to get an [API key](https://home.openweathermap
 
 ## Screenshots
 
+### Windows
+
 ![Windows screenshot 1](https://i.imgur.com/lTc87Yq.png)
+
+### Linux
+
+![Linux screenshot 1](https://i.imgur.com/494m1jA.png)
 
 # Features
 
