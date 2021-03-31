@@ -32,11 +32,12 @@ The application **requires** you to get an [API key](https://home.openweathermap
 # Dependencies
 
 * pyowm >= 3.2.0
-* PyQt5 >= 5.15.1 or newer (on Debian Stable use 5.15.1) 
+* PyQt5 >= 5.15.1 (on Debian Stable use specifically 5.15.1) 
 
-## Install
+## Install (source)
 
 ```
+git clone https://github.com/vascocosta/glueather.git
 pip3 install pyowm
 pip3 install pyqt5
 ```
