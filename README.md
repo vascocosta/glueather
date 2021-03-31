@@ -6,7 +6,7 @@ glueather allows you to fetch the current weather as well as hourly and daily fo
 
 Instead of showing fancy graphics glueather focuses on the actual meteorological data, neatly presented in a tabular fahsion, particularly useful for the forecasts. The data is provided by the free [OpenWeather API](https://openweathermap.org/), through thousands of distributed home weather stations in addition to standard sources of meteorological data.
 
-In order to use the application you **need** to get an [API key](https://home.openweathermap.org/users/sign_up) from OpenWeather which you should paste into your conf.json file.
+The application **requires** you to get an [API key](https://home.openweathermap.org/users/sign_up) from OpenWeather which you should paste into your conf.json file.
 
 ## Screenshots
 
