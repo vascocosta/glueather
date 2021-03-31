@@ -1,6 +1,8 @@
 # glueather
 
-A simple Python/Qt weather application using the OpenWeather API.
+**A simple Python/Qt weather application using the OpenWeather API.**
+
+# Screenshots
 
 ![Windows screenshot 1](https://i.imgur.com/lTc87Yq.png)
 
