@@ -8,6 +8,8 @@ Instead of showing fancy graphics glueather focuses on the actual meteorological
 
 In order to use the application you **need** to get an [API key](https://home.openweathermap.org/users/sign_up) from OpenWeather which you should paste into your conf.json file.
 
+## Screenshots
+
 ![Windows screenshot 1](https://i.imgur.com/lTc87Yq.png)
 
 # Features
