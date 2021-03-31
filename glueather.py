@@ -102,6 +102,8 @@ class MainWindow(QMainWindow):
         event.accept()
 
     def update_weather(self, result):
+        self.ui.lineEdit.setEnabled(True)
+        self.ui.pushButton.setEnabled(True)
         if 'error' in result.keys():
             QMessageBox.warning(self, "Error", result['error'])
             return
@@ -146,6 +148,8 @@ class MainWindow(QMainWindow):
             self.ui.textEdit.setHtml(output)
 
     def fetch_weather(self):
+        self.ui.lineEdit.setDisabled(True)
+        self.ui.pushButton.setDisabled(True)
         output = "Updating..."
         location = self.ui.lineEdit.text()
         if self.ui.radioButton_2.isChecked():
