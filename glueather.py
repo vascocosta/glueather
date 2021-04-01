@@ -18,6 +18,7 @@
 # along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
 
 import json
+import pathlib
 import sys
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
@@ -26,7 +27,7 @@ from ui_mainwindow import Ui_MainWindow
 
 from weathermanager import WeatherManager, WeatherError
 
-CONF_PATH    = 'conf.json'
+CONF_PATH    = '.glueather.conf'
 ICON_PATH    = 'icons/glueather.ico'
 WINDOW_TITLE = 'glueather'
 
@@ -75,24 +76,27 @@ class MainWindow(QMainWindow):
 
     def load_conf(self):
         try:
-            with open(CONF_PATH, 'r') as f:
+            with open(pathlib.Path.home() / CONF_PATH, 'r') as f:
                 self.conf = json.load(f)
             self.ui.lineEdit.setText(self.conf['location'])
             if self.conf['units'].lower() in ('f', 'fahrenheit'):
                 self.ui.radioButton_2.setChecked(True)
+        except FileNotFoundError:
+            self.save_conf()
+            QMessageBox.warning(self, "Error", "No configuration file found. Creating new one.")
         except Exception:
             QMessageBox.critical(self, "Error", "Problem reading configuration file.")
 
     def save_conf(self):
         api_key = self.conf['api_key']
-        location = self.ui.lineEdit.text()
+        location = self.ui.lineEdit.text() or self.conf['location']
         if self.ui.radioButton.isChecked():
             units = 'C'
         else:
             units = 'F'
         conf = {'api_key': api_key, 'location': location, 'units': units}
         try:
-            with open(CONF_PATH, 'w') as f:
+            with open(pathlib.Path.home() / CONF_PATH, 'w') as f:
                 json.dump(conf, f, ensure_ascii=False, indent=4)
         except Exception:
             QMessageBox.critical(self, "Error", "Problem writing configuration file.")
