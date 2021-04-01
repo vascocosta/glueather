@@ -104,7 +104,8 @@ class WeatherManager:
                 f.append({'location':    f"{daily_forecast.location.name}",
                           'day':         f"{day}",
                           'description': f"{w.detailed_status[0].upper()}{w.detailed_status[1:]}",
-                          'temperature': f"Max: {math.ceil(w.temperature(self.units)['max'])}{self.units[0].upper()} Min: {math.ceil(w.temperature(self.units)['min'])}{self.units[0].upper()}",
+                          'max':         f"{math.ceil(w.temperature(self.units)['max'])}{self.units[0].upper()}",
+                          'min':         f"{math.ceil(w.temperature(self.units)['min'])}{self.units[0].upper()}",
                           'humidity':    f"{w.humidity}%",
                           'pressure':    f"{w.pressure['press']}hPa",
                           'wind':        f"{w.wind()['speed']}m/s @ {self._wind_cardinal(w.wind()['deg'])}"})
