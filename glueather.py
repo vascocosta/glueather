@@ -141,11 +141,12 @@ class MainWindow(QMainWindow):
             output += f"<h1>Daily forecast for - {result['daily_weather'][0]['location']}</h1>" + \
                       f"<hr>" + \
                       f"<table border='1' cellpadding='10' width='100%'>" + \
-                      f"<tr><td><b>Day</b></td><td><b>Conditions</b></td><td><b>Temperature</b></td><td><b>Humidity</b></td><td><b>Pressure</b><td><b>Wind</b></td></tr>"
+                      f"<tr><td><b>Day</b></td><td><b>Conditions</b></td><td><b>Max</b></td><td><b>Min</b></td><td><b>Humidity</b></td><td><b>Pressure</b><td><b>Wind</b></td></tr>"
             for i, forecast in enumerate(result['daily_weather'], start=1):
                 output += f"<tr><td>{forecast['day']}</td>" + \
                           f"<td>{forecast['description']}</td>" + \
-                          f"<td>{forecast['temperature']}</td>" + \
+                          f"<td>{forecast['max']}</td>" + \
+                          f"<td>{forecast['min']}</td>" + \
                           f"<td>{forecast['humidity']}</td>" + \
                           f"<td>{forecast['pressure']}</td>" + \
                           f"<td>{forecast['wind']}</td></tr>"
