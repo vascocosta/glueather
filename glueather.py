@@ -176,10 +176,13 @@ class MainWindow(QMainWindow):
         self.worker.finished.connect(self.thread.quit)
         self.thread.start()
 
-if __name__ == "__main__":
+def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.setWindowTitle(WINDOW_TITLE)
     window.setWindowIcon(QIcon(ICON_PATH))
     window.show()
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()
