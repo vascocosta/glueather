@@ -23,9 +23,9 @@ import sys
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from ui_mainwindow import Ui_MainWindow
 
-from weathermanager import WeatherManager, WeatherError
+from glueather.ui_mainwindow import Ui_MainWindow
+from glueather.weathermanager import WeatherManager, WeatherError
 
 CONF_PATH    = '.glueather.conf'
 ICON_PATH    = 'icons/glueather.ico'
