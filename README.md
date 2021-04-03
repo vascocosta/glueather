@@ -74,7 +74,3 @@ venv\Scripts\activate
 pip3 install pyowm
 pip3 install pyqt5
 ```
-
-# Install (binaries)
-
-Coming soon...
