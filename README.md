@@ -10,13 +10,7 @@ Instead of showing fancy graphics glueather focuses on the actual meteorological
 
 The application **requires** you to get an [API key](https://home.openweathermap.org/users/sign_up) from OpenWeather which you should paste into your .glueather.conf file located immediately under your home folder ($HOME/.glueather.conf on MacOS/Linux and %USERPROFILE%\.glueather.conf on Windows). The configuration file is automatically created the first time you run glueather, however the API key field is left empty.
 
-# Screenshots
-
-## Windows
-
 ![Windows screenshot 1](https://i.imgur.com/lTc87Yq.png)
-
-## Linux
 
 ![Linux screenshot 1](https://i.imgur.com/494m1jA.png)
 
@@ -77,13 +71,13 @@ pip install pyowm
 pip install pyqt5
 ```
 
-# Run (if installed with pip)
+# Run (pip)
 
 ```
 glueather
 ```
 
-# Run (if installed from source)
+# Run (source)
 
 ```
 cd glueather/src/
