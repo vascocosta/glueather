@@ -1,12 +1,12 @@
 # glueather
 
-**A simple Python/Qt weather application using the OpenWeather API.**
+A simple Python/Qt weather application using the OpenWeather API.
 
 glueather allows you to fetch the current weather as well as hourly and daily forecasts for any given location. The interface is extremely simple to use and multiplatform, working exactly the same across a variety of operating systems like MacOS, Linux or Windows.
-
+w
 Instead of showing fancy graphics glueather focuses on the actual meteorological data, neatly presented in a tabular fahsion, particularly useful for the forecasts. The data is provided by the free [OpenWeather API](https://openweathermap.org/), through thousands of distributed home weather stations in addition to standard sources of meteorological data.
 
-The application **requires** you to get an [API key](https://home.openweathermap.org/users/sign_up) from OpenWeather which you should paste into your conf.json file.
+The application **requires** you to get an [API key](https://home.openweathermap.org/users/sign_up) from OpenWeather which you should paste into your .glueather.conf file located immediately under your home folder ($HOME/.glueather.conf on MacOS/Linux and %USERPROFILE%\.glueather.conf on Windows). The configuration file is automatically created the first time you run glueather, however the API key field is left empty.
 
 ## Screenshots
 
