@@ -14,6 +14,8 @@ The application **requires** you to get an [API key](https://home.openweathermap
 
 ![Windows screenshot 1](https://i.imgur.com/lTc87Yq.png)
 
+![Mac OS X screenshot 1](https://i.imgur.com/DhY2P6o.png)
+
 ![Linux screenshot 1](https://i.imgur.com/494m1jA.png)
 
 # Features
