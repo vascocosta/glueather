@@ -45,7 +45,8 @@ class WeatherManager:
         except:
             return 'N/A'
         index = math.floor((angle / 22.5) + 0.5)
-        cardinal = ("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW")
+        cardinal = ('⭣ N', '⭩ NNE', '⭩ NE', '⭩ ENE', '⭠ E', '⭦ ESE', '⭦ SE', '⭦ SSE',
+                    '⭡ S', '⭧ SSW', '⭧ SW', '⭧ WSW', '⭢ W', '⭨ WNW', '⭨ NW', '⭨ NNW')
         return cardinal[index % 16]
 
     def current(self, location):
