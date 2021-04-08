@@ -58,7 +58,7 @@ pip install pyqt5
 ```
 git clone https://github.com/vascocosta/glueather.git
 cd glueather
-pyhton -m venv venv
+python -m venv venv
 source venv/bin/activate
 pip install pyowm
 pip install pyqt5
@@ -69,7 +69,7 @@ pip install pyqt5
 ```
 git clone https://github.com/vascocosta/glueather.git
 cd glueather
-pyhton -m venv venv
+python -m venv venv
 venv\Scripts\activate
 pip install pyowm
 pip install pyqt5
