@@ -47,8 +47,8 @@ pip install glueather
 
 ```
 git clone https://github.com/vascocosta/glueather.git
-pip install pyowm
-pip install pyqt5
+cd glueather
+pip install -r requirements.txt
 ```
 
 ## Venv
@@ -60,8 +60,7 @@ git clone https://github.com/vascocosta/glueather.git
 cd glueather
 python -m venv venv
 source venv/bin/activate
-pip install pyowm
-pip install pyqt5
+pip install -r requirements.txt
 ```
 
 ### Windows
@@ -71,8 +70,7 @@ git clone https://github.com/vascocosta/glueather.git
 cd glueather
 python -m venv venv
 venv\Scripts\activate
-pip install pyowm
-pip install pyqt5
+pip install -r requirements.txt
 ```
 
 # Run (pip)
