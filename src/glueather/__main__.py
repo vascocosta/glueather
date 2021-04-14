@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.ui.textEdit.zoomIn(2)
         self.ui.lineEdit.returnPressed.connect(self.fetch_weather)
         self.ui.pushButton.clicked.connect(self.fetch_weather)
-        self.conf = {'api_key': '0', 'location': 'London', 'units': 'C'}
+        self.conf = {'api_key': 'f97b1089707bd013b60c22db86730cf8', 'location': 'London', 'units': 'C'}
         self.load_conf()
         self.fetch_weather()
 
