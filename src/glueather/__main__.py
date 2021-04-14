@@ -115,7 +115,7 @@ class MainWindow(QMainWindow):
         if 'current_weather' in result.keys():
             output += f"<h1>Current weather at - {result['current_weather']['location']}</h1>" + \
                       f"<hr>" + \
-                      f"<table border='1' width='100%' cellpadding='10'>" + \
+                      f"<table border='0' width='30%' cellpadding='5'>" + \
                       f"<tr><td><b>Conditions</b></td><td>{result['current_weather']['description']}</td></tr>" + \
                       f"<tr><td><b>Temperature</b></td><td>{result['current_weather']['temperature']}</td></tr>" + \
                       f"<tr><td><b>Humidity</b></td><td>{result['current_weather']['humidity']}</td></tr>" + \
@@ -126,7 +126,7 @@ class MainWindow(QMainWindow):
         if 'hourly_weather' in result.keys():
             output += f"<h1>Hourly forecast for - {result['hourly_weather'][0]['location']}</h1>" + \
                       f"<hr>" + \
-                      f"<table border='1' cellpadding='10' width='100%'>" + \
+                      f"<table border='0' cellpadding='10' width='100%'>" + \
                       f"<tr><td><b>Time</b></td><td><b>Conditions</b></td><td><b>Temperature</b></td><td><b>Humidity</b></td><td><b>Pressure</b></td><td><b>Wind</b></td></tr>"
             for i, forecast in enumerate(result['hourly_weather'], start=1):
                 output += f"<tr><td>{3*i} hours</td>" + \
@@ -140,7 +140,7 @@ class MainWindow(QMainWindow):
         if 'daily_weather' in result.keys():
             output += f"<h1>Daily forecast for - {result['daily_weather'][0]['location']}</h1>" + \
                       f"<hr>" + \
-                      f"<table border='1' cellpadding='10' width='100%'>" + \
+                      f"<table border='0' cellpadding='10' width='100%'>" + \
                       f"<tr><td><b>Day</b></td><td><b>Conditions</b></td><td><b>Max</b></td><td><b>Min</b></td><td><b>Humidity</b></td><td><b>Pressure</b><td><b>Wind</b></td></tr>"
             for i, forecast in enumerate(result['daily_weather'], start=1):
                 output += f"<tr><td>{forecast['day']}</td>" + \
