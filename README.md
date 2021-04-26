@@ -12,7 +12,7 @@ Instead of showing fancy graphics glueather focuses on the actual meteorological
 
 ![Mac OS X screenshot 1](https://i.imgur.com/DhY2P6o.png)
 
-![Linux screenshot 1](https://i.imgur.com/494m1jA.png)
+![Linux screenshot 1](https://i.imgur.com/bqYEQzU.png)
 
 # Features
 
