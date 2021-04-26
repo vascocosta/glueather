@@ -10,9 +10,9 @@ Instead of showing fancy graphics glueather focuses on the actual meteorological
 
 ![Windows screenshot 1](https://i.imgur.com/w3ZUaKu.png)
 
-![Mac OS X screenshot 1](https://i.imgur.com/DhY2P6o.png)
-
 ![Linux screenshot 1](https://i.imgur.com/bqYEQzU.png)
+
+![Mac OS X screenshot 1](https://i.imgur.com/DhY2P6o.png)
 
 # Features
 
