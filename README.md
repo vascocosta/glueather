@@ -8,7 +8,7 @@ Instead of showing fancy graphics glueather focuses on the actual meteorological
 
 ## Screenshots
 
-![Windows screenshot 1](https://i.imgur.com/SI8jKUl.png)
+![Windows screenshot 1](https://i.imgur.com/w3ZUaKu.png)
 
 ![Mac OS X screenshot 1](https://i.imgur.com/DhY2P6o.png)
 
